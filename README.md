@@ -31,7 +31,7 @@ Retrieve value from a nested structure using a list of keys:
         ['name' => 'Acme Inc'],
     ];
 
-    $name = igorw\get_in($data, [1, 'name']);
+    $name = igorw\get_in($users, [1, 'name']);
     //= 'Jane Doe'
 
 Non existent keys return null:
