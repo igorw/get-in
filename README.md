@@ -76,14 +76,14 @@ Set a value at a particular location:
 
     $data = ['foo' => 'bar'];
 
-    $new = igorw\update_in($data, ['foo'], 'baz');
+    $new = igorw\assoc_in($data, ['foo'], 'baz');
     //= ['foo' => 'baz']
 
 It will also set the value if it does not exist yet:
 
     $data = [];
 
-    $new = igorw\update_in($data, ['foo', 'bar'], 'baz');
+    $new = igorw\assoc_in($data, ['foo', 'bar'], 'baz');
     //= ['foo' => ['bar' => 'baz']]
 
 ## Inspiration
