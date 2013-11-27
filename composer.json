@@ -1,0 +1,15 @@
+{
+    "name": "igorw/get-in",
+    "description": "Functions for for hash map (assoc array) traversal.",
+    "keywords": ["hash-map", "assoc-array"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Igor Wiedler",
+            "email": "igor@wiedler.ch"
+        }
+    ],
+    "autoload": {
+        "files": ["src/get_in.php"]
+    }
+}
