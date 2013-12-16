@@ -43,8 +43,6 @@ function update_in($array, array $keys, callable $f /* , $args... */)
 
 function assoc_in($array, array $keys, $value)
 {
-    $args = array_slice(func_get_args(), 3);
-
     if (!$keys) {
         return $array;
     }
