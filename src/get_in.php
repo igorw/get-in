@@ -2,7 +2,7 @@
 
 namespace igorw;
 
-function get_in($array, array $keys, $default = null)
+function get_in(array $array, array $keys, $default = null)
 {
     if (!$keys) {
         return $array;
@@ -10,7 +10,7 @@ function get_in($array, array $keys, $default = null)
 
     $current = $array;
     foreach ($keys as $key) {
-        if (!isset($current[$key])) {
+        if (!array_key_exists($key, $current)) {
             return $default;
         }
 
@@ -19,7 +19,7 @@ function get_in($array, array $keys, $default = null)
     return $current;
 }
 
-function update_in($array, array $keys, callable $f /* , $args... */)
+function update_in(array $array, array $keys, callable $f /* , $args... */)
 {
     $args = array_slice(func_get_args(), 3);
 
@@ -29,7 +29,7 @@ function update_in($array, array $keys, callable $f /* , $args... */)
 
     $current = &$array;
     foreach ($keys as $key) {
-        if (!isset($current[$key])) {
+        if (!array_key_exists($key, $current)) {
             throw new \InvalidArgumentException(sprintf('Did not find path %s in structure %s', json_encode($keys), json_encode($array)));
         }
 
@@ -41,7 +41,7 @@ function update_in($array, array $keys, callable $f /* , $args... */)
     return $array;
 }
 
-function assoc_in($array, array $keys, $value)
+function assoc_in(array $array, array $keys, $value)
 {
     if (!$keys) {
         return $array;
@@ -49,7 +49,7 @@ function assoc_in($array, array $keys, $value)
 
     $current = &$array;
     foreach ($keys as $key) {
-        if (!isset($current[$key])) {
+        if (!array_key_exists($key, $current)) {
             $current[$key] = [];
         }
 
