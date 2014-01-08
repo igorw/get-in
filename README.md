@@ -17,7 +17,9 @@ Enough already! `get-in` provides a better way:
 
 ## Installation
 
-Through [composer](http://getcomposer.org).
+Through [composer](http://getcomposer.org):
+
+    $ composer require igorw/get-in:~1.0
 
 ## Usage
 
