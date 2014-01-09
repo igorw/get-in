@@ -8,6 +8,11 @@ function get_in(array $array, array $keys, $default = null)
         return $array;
     }
 
+    // This is a micro-optimization, it is fast for non-nested keys, but fails for null values
+    if (count($keys) == 1 && isset($array[$keys[0]])) {
+        return $array[$keys[0]];
+    }
+
     $current = $array;
     foreach ($keys as $key) {
         if (!array_key_exists($key, $current)) {
