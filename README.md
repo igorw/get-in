@@ -9,17 +9,23 @@ necessary.
 For example, to access a nested key `['foo']['bar']['baz']`, you must do
 something like this:
 
-    $baz = (isset($data['foo']['bar']['baz'])) ? $data['foo']['bar']['baz'] : null;
+```php
+$baz = (isset($data['foo']['bar']['baz'])) ? $data['foo']['bar']['baz'] : null;
+```
 
 Enough already! `get-in` provides a better way:
 
-    $baz = igorw\get_in($data, ['foo', 'bar', 'baz']);
+```php
+$baz = igorw\get_in($data, ['foo', 'bar', 'baz']);
+```
 
 ## Installation
 
 Through [composer](http://getcomposer.org):
 
-    $ composer require igorw/get-in:~1.0
+```bash
+$ composer require igorw/get-in:~1.0
+```
 
 ## Usage
 
@@ -27,66 +33,78 @@ Through [composer](http://getcomposer.org):
 
 Retrieve value from a nested structure using a list of keys:
 
-    $users = [
-        ['name' => 'Igor Wiedler'],
-        ['name' => 'Jane Doe'],
-        ['name' => 'Acme Inc'],
-    ];
+```php
+$users = [
+    ['name' => 'Igor Wiedler'],
+    ['name' => 'Jane Doe'],
+    ['name' => 'Acme Inc'],
+];
 
-    $name = igorw\get_in($users, [1, 'name']);
-    //= 'Jane Doe'
+$name = igorw\get_in($users, [1, 'name']);
+//= 'Jane Doe'
+```
 
 Non existent keys return null:
 
-    $data = ['foo' => 'bar'];
+```php
+$data = ['foo' => 'bar'];
 
-    $baz = igorw\get_in($data, ['baz']);
-    //= null
-
+$baz = igorw\get_in($data, ['baz']);
+//= null
+```
 You can provide a default value that will be used instead of null:
 
-    $data = ['foo' => 'bar'];
+```php
+$data = ['foo' => 'bar'];
 
-    $baz = igorw\get_in($data, ['baz'], 'qux');
-    //= 'qux'
-
+$baz = igorw\get_in($data, ['baz'], 'qux');
+//= 'qux'
+```
 ### update_in
 
 Apply a function to the value at a particular location in a nested structure:
 
-    $data = ['foo' => ['answer' => 42]];
-    $inc = function ($x) {
-        return $x + 1;
-    };
+```php
+$data = ['foo' => ['answer' => 42]];
+$inc = function ($x) {
+    return $x + 1;
+};
 
-    $new = igorw\update_in($data, ['foo', 'answer'], $inc);
-    //= ['foo' => ['answer' => 43]]
+$new = igorw\update_in($data, ['foo', 'answer'], $inc);
+//= ['foo' => ['answer' => 43]]
+```
 
 You can variadically provide additional arguments for the function:
 
-    $data = ['foo' => 'bar'];
-    $concat = function (/* $args... */) {
-        return implode('', func_get_args());
-    };
+```php
+$data = ['foo' => 'bar'];
+$concat = function (/* $args... */) {
+    return implode('', func_get_args());
+};
 
-    $new = igorw\update_in($data, ['foo'], $concat, ' is the ', 'best');
-    //= ['foo' => 'bar is the best']
+$new = igorw\update_in($data, ['foo'], $concat, ' is the ', 'best');
+//= ['foo' => 'bar is the best']
+```
 
 ### assoc_in
 
 Set a value at a particular location:
 
-    $data = ['foo' => 'bar'];
+```php
+$data = ['foo' => 'bar'];
 
-    $new = igorw\assoc_in($data, ['foo'], 'baz');
-    //= ['foo' => 'baz']
+$new = igorw\assoc_in($data, ['foo'], 'baz');
+//= ['foo' => 'baz']
+```
 
 It will also set the value if it does not exist yet:
 
-    $data = [];
+```php
+$data = [];
 
-    $new = igorw\assoc_in($data, ['foo', 'bar'], 'baz');
-    //= ['foo' => ['bar' => 'baz']]
+$new = igorw\assoc_in($data, ['foo', 'bar'], 'baz');
+//= ['foo' => ['bar' => 'baz']]
+```
 
 ## Inspiration
 
