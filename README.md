@@ -1,5 +1,7 @@
 # get-in
 
+![travis](https://travis-ci.org/igorw/get-in.png)
+
 Functions for for hash map (assoc array) traversal.
 
 When dealing with nested associative structures, traversing them can become
