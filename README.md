@@ -1,6 +1,6 @@
 # get-in
 
-![travis](https://travis-ci.org/igorw/get-in.png)
+[![Build Status](https://travis-ci.org/igorw/get-in.png)](https://travis-ci.org/igorw/get-in)
 
 Functions for for hash map (assoc array) traversal.
 
