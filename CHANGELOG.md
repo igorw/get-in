@@ -1,3 +1,7 @@
+### 1.0.2 (2014-09-03)
+
+  * Allow `assoc_in` to override non-array values (@marcioAlmada)
+
 ### 1.0.1 (2014-07-06)
 
   * Support for null values
