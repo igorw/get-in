@@ -93,6 +93,7 @@ class GetInTest extends \PHPUnit_Framework_TestCase
             [['key' => 'value'], $single, [], 'new value'],
             [['foo' => ['bar' => 'new value']], $empty, ['foo', 'bar'], 'new value'],
             [['foo' => 'new value'], ['foo' => null], ['foo'], 'new value'],
+            [['foo' => ['bar' => 'new value']], ['foo' => null], ['foo', 'bar'], 'new value'],
         ];
     }
 }
