@@ -15,12 +15,13 @@ function get_in(array $array, array $keys, $default = null)
 
     $current = $array;
     foreach ($keys as $key) {
-        if (!array_key_exists($key, $current)) {
+        if (!is_array($current) || !array_key_exists($key, $current)) {
             return $default;
         }
 
         $current = $current[$key];
     }
+
     return $current;
 }
 
@@ -34,7 +35,7 @@ function update_in(array $array, array $keys, callable $f /* , $args... */)
 
     $current = &$array;
     foreach ($keys as $key) {
-        if (!array_key_exists($key, $current)) {
+        if (!is_array($current) || !array_key_exists($key, $current)) {
             throw new \InvalidArgumentException(sprintf('Did not find path %s in structure %s', json_encode($keys), json_encode($array)));
         }
 
