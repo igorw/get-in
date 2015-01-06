@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/igorw/get-in.png)](https://travis-ci.org/igorw/get-in)
 
-Functions for for hash map (assoc array) traversal.
+Functions for hash map (assoc array) traversal.
 
 When dealing with nested associative structures, traversing them can become
 quite a pain. Mostly because of the amount of `isset` checking that is
