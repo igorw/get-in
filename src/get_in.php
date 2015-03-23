@@ -2,6 +2,12 @@
 
 namespace igorw;
 
+/**
+ * @param array $array
+ * @param array $keys
+ * @param null $default
+ * @return mixed|null
+ */
 function get_in(array $array, array $keys, $default = null)
 {
     if (!$keys) {
@@ -25,6 +31,12 @@ function get_in(array $array, array $keys, $default = null)
     return $current;
 }
 
+/**
+ * @param array $array
+ * @param array $keys
+ * @param callable $f
+ * @return array
+ */
 function update_in(array $array, array $keys, callable $f /* , $args... */)
 {
     $args = array_slice(func_get_args(), 3);
@@ -47,6 +59,12 @@ function update_in(array $array, array $keys, callable $f /* , $args... */)
     return $array;
 }
 
+/**
+ * @param array $array
+ * @param array $keys
+ * @param $value
+ * @return array
+ */
 function assoc_in(array $array, array $keys, $value)
 {
     if (!$keys) {
