@@ -25,8 +25,16 @@ function get_in(array $array, array $keys, $default = null)
     return $current;
 }
 
-function update_in(array $array, array $keys, callable $f /* , $args... */)
+function update_in(array $array, array $keys, $f /* , $args... */)
 {
+    if (!is_callable($f)) {
+        throw new \InvalidArgumentException(sprintf(
+            'Expected callable. Actual [type=%s]%s.',
+            gettype($f),
+            is_object($f) ? '[class=' . get_class($f) . ']' : ''
+        ));
+    }
+    
     $args = array_slice(func_get_args(), 3);
 
     if (!$keys) {
@@ -42,7 +50,7 @@ function update_in(array $array, array $keys, callable $f /* , $args... */)
         $current = &$current[$key];
     }
 
-    $current = call_user_func_array($f, array_merge([$current], $args));
+    $current = call_user_func_array($f, array_merge(array($current), $args));
 
     return $array;
 }
@@ -57,7 +65,7 @@ function assoc_in(array $array, array $keys, $value)
     foreach ($keys as $key) {
 
         if (!is_array($current)) {
-            $current = [];
+            $current = array();
         }
 
         $current = &$current[$key];
