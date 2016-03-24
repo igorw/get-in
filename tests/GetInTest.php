@@ -12,70 +12,70 @@ class GetInTest extends \PHPUnit_Framework_TestCase
 
     function provideGetIn()
     {
-        $single = ['key' => 'value'];
-        $nested = ['foo' => ['bar' => ['baz' => 'value']]];
-        $list   = [['name' => 'foo']];
+        $single = array('key' => 'value');
+        $nested = array('foo' => array('bar' => array('baz' => 'value')));
+        $list   = array(array('name' => 'foo'));
 
-        return [
-            ['value', $single, ['key'], 'default'],
-            [['bar' => ['baz' => 'value']], $nested, ['foo'], 'default'],
-            [['baz' => 'value'], $nested, ['foo', 'bar'], 'default'],
-            ['value', $nested, ['foo', 'bar', 'baz'], 'default'],
-            ['default', $nested, ['foo', 'bar', 'bang'], 'default'],
-            ['default', $nested, ['non_existent'], 'default'],
-            [null, $nested, ['non_existent']],
-            [$nested, $nested, [], 'default'],
-            [$nested, $nested, []],
-            ['foo', $list, [0, 'name']],
-            [null, ['foo' => null], ['foo'], 'err'],
-            [null, ['foo' => null], ['foo', 'bar']],
-            ['default', $single, ['foo', 'value'], 'default'],
-        ];
+        return array(
+            array('value', $single, array('key'), 'default'),
+            array(array('bar' => array('baz' => 'value')), $nested, array('foo'), 'default'),
+            array(array('baz' => 'value'), $nested, array('foo', 'bar'), 'default'),
+            array('value', $nested, array('foo', 'bar', 'baz'), 'default'),
+            array('default', $nested, array('foo', 'bar', 'bang'), 'default'),
+            array('default', $nested, array('non_existent'), 'default'),
+            array(null, $nested, array('non_existent')),
+            array($nested, $nested, array(), 'default'),
+            array($nested, $nested, array()),
+            array('foo', $list, array(0, 'name')),
+            array(null, array('foo' => null), array('foo'), 'err'),
+            array(null, array('foo' => null), array('foo', 'bar')),
+            array('default', $single, array('foo', 'value'), 'default'),
+        );
     }
 
     /** @dataProvider provideUpdateIn */
-    function testUpdateIn($expected, $array, $keys, $fn, array $args = [])
+    function testUpdateIn($expected, $array, $keys, $fn, array $args = array())
     {
-        $this->assertSame($expected, call_user_func_array('igorw\update_in', array_merge([$array, $keys, $fn], $args)));
+        $this->assertSame($expected, call_user_func_array('igorw\update_in', array_merge(array($array, $keys, $fn), $args)));
     }
 
     function provideUpdateIn()
     {
-        $nested = ['foo' => ['bar' => ['baz' => 40]]];
-        $single = ['key' => 'value'];
+        $nested = array('foo' => array('bar' => array('baz' => 40)));
+        $single = array('key' => 'value');
 
         $add = function ($a, $b) { return $a + $b; };
         $identity = function ($x) { return $x; };
 
-        return [
-            [['foo' => ['bar' => ['baz' => 42]]], $nested, ['foo', 'bar', 'baz'], $add, [2]],
-            [['foo' => ['bar' => ['baz' => 40]]], $nested, ['foo', 'bar', 'baz'], $identity],
-            [['foo' => ['bar' => ['baz' => 40]]], $nested, [], $identity],
-            [['key' => 'value'], $single, [], $identity],
-            [['foo' => null], ['foo' => null], ['foo'], $identity],
-        ];
+        return array(
+            array(array('foo' => array('bar' => array('baz' => 42))), $nested, array('foo', 'bar', 'baz'), $add, array(2)),
+            array(array('foo' => array('bar' => array('baz' => 40))), $nested, array('foo', 'bar', 'baz'), $identity),
+            array(array('foo' => array('bar' => array('baz' => 40))), $nested, array(), $identity),
+            array(array('key' => 'value'), $single, array(), $identity),
+            array(array('foo' => null), array('foo' => null), array('foo'), $identity),
+        );
     }
 
     /**
      * @dataProvider provideInvalidUpdateIn
      * @expectedException InvalidArgumentException
      */
-    function testInvalidUpdateIn($expected, $array, $keys, $fn, array $args = [])
+    function testInvalidUpdateIn($expected, $array, $keys, $fn, array $args = array())
     {
-        $this->assertSame($expected, call_user_func_array('igorw\update_in', array_merge([$array, $keys, $fn], $args)));
+        $this->assertSame($expected, call_user_func_array('igorw\update_in', array_merge(array($array, $keys, $fn), $args)));
     }
 
     function provideInvalidUpdateIn()
     {
-        $nested = ['foo' => ['bar' => ['baz' => 40]]];
+        $nested = array('foo' => array('bar' => array('baz' => 40)));
 
         $identity = function ($x) { return $x; };
 
-        return [
-            [['foo' => ['bar' => ['baz' => 40]]], $nested, ['non_existent'], $identity],
-            [['foo' => ['bar' => ['baz' => 40]]], $nested, ['non', 'existent'], $identity],
-            [['foo' => ['bar' => ['baz' => 40]]], $nested, ['foo', 'bar', 'baz', 'qux'], $identity],
-        ];
+        return array(
+            array(array('foo' => array('bar' => array('baz' => 40))), $nested, array('non_existent'), $identity),
+            array(array('foo' => array('bar' => array('baz' => 40))), $nested, array('non', 'existent'), $identity),
+            array(array('foo' => array('bar' => array('baz' => 40))), $nested, array('foo', 'bar', 'baz', 'qux'), $identity),
+        );
     }
 
     /** @dataProvider provideAssocIn */
@@ -86,16 +86,24 @@ class GetInTest extends \PHPUnit_Framework_TestCase
 
     function provideAssocIn()
     {
-        $nested = ['foo' => ['bar' => ['baz' => 'value']]];
-        $single = ['key' => 'value'];
-        $empty  = [];
+        $nested = array('foo' => array('bar' => array('baz' => 'value')));
+        $single = array('key' => 'value');
+        $empty  = array();
 
-        return [
-            [['foo' => ['bar' => ['baz' => 'new value']]], $nested, ['foo', 'bar', 'baz'], 'new value'],
-            [['key' => 'value'], $single, [], 'new value'],
-            [['foo' => ['bar' => 'new value']], $empty, ['foo', 'bar'], 'new value'],
-            [['foo' => 'new value'], ['foo' => null], ['foo'], 'new value'],
-            [['foo' => ['bar' => 'new value']], ['foo' => null], ['foo', 'bar'], 'new value'],
-        ];
+        return array(
+            array(array('foo' => array('bar' => array('baz' => 'new value'))), $nested, array('foo', 'bar', 'baz'), 'new value'),
+            array(array('key' => 'value'), $single, array(), 'new value'),
+            array(array('foo' => array('bar' => 'new value')), $empty, array('foo', 'bar'), 'new value'),
+            array(array('foo' => 'new value'), array('foo' => null), array('foo'), 'new value'),
+            array(array('foo' => array('bar' => 'new value')), array('foo' => null), array('foo', 'bar'), 'new value'),
+        );
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testUpdateInRequiresCallback()
+    {
+        update_in(array(), array(), new \stdClass);
     }
 }
